@@ -1,0 +1,27 @@
+flutter: If the home property is specified, the routes table cannot include an entry for "/", since it would
+flutter: be redundant.
+
+-> 라우트와 홈을 동시에 사용해서 그렇다.
+
+routes: {
+        // Remove the redundant entry for "/"
+         '/': (context) => SplashScreen(),
+        '/main': (context) => HomeScreen(),
+      },
+      home: ChangeNotifierProvider<TimerProvider>(
+        create: (context) => TimerProvider(),
+        child: SplashScreen(),
+      ),
+
+-> 즉 home을 실행하면 / 경로를 중첩으로 사용하게됨
+
+그래서 
+routes: {
+        '/': (context) => SplashScreen(),
+        '/main': (context) => ChangeNotifierProvider<TimerProvider>(
+              create: (context) => TimerProvider(),
+              child: HomeScreen(),
+            ),
+      },
+
+로 하나로 합치기
